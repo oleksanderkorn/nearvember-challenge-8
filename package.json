@@ -33,10 +33,14 @@
     "shelljs": "~0.8.4"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
+    "@heroicons/react": "^1.0.5",
     "near-api-js": "~0.43.1",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
-    "regenerator-runtime": "~0.13.5"
+    "regenerator-runtime": "~0.13.5",
+    "tailwindcss": "^2.2.19",
+    "near-sdk-as": "3.1.0"
   },
   "resolutions": {
     "@babel/preset-env": "7.13.8"
