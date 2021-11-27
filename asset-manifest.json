@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/nearvember-challenge-8/static/css/main.266fcd95.chunk.css",
-    "main.js": "/nearvember-challenge-8/static/js/main.870e00b7.chunk.js",
-    "main.js.map": "/nearvember-challenge-8/static/js/main.870e00b7.chunk.js.map",
+    "main.css": "/nearvember-challenge-8/static/css/main.deb07f91.chunk.css",
+    "main.js": "/nearvember-challenge-8/static/js/main.59c96e2c.chunk.js",
+    "main.js.map": "/nearvember-challenge-8/static/js/main.59c96e2c.chunk.js.map",
     "runtime-main.js": "/nearvember-challenge-8/static/js/runtime-main.fa678e2a.js",
     "runtime-main.js.map": "/nearvember-challenge-8/static/js/runtime-main.fa678e2a.js.map",
-    "static/js/2.af5e78b3.chunk.js": "/nearvember-challenge-8/static/js/2.af5e78b3.chunk.js",
-    "static/js/2.af5e78b3.chunk.js.map": "/nearvember-challenge-8/static/js/2.af5e78b3.chunk.js.map",
+    "static/js/2.5e73d762.chunk.js": "/nearvember-challenge-8/static/js/2.5e73d762.chunk.js",
+    "static/js/2.5e73d762.chunk.js.map": "/nearvember-challenge-8/static/js/2.5e73d762.chunk.js.map",
     "index.html": "/nearvember-challenge-8/index.html",
-    "static/css/main.266fcd95.chunk.css.map": "/nearvember-challenge-8/static/css/main.266fcd95.chunk.css.map",
-    "static/js/2.af5e78b3.chunk.js.LICENSE.txt": "/nearvember-challenge-8/static/js/2.af5e78b3.chunk.js.LICENSE.txt"
+    "static/css/main.deb07f91.chunk.css.map": "/nearvember-challenge-8/static/css/main.deb07f91.chunk.css.map",
+    "static/js/2.5e73d762.chunk.js.LICENSE.txt": "/nearvember-challenge-8/static/js/2.5e73d762.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.fa678e2a.js",
-    "static/js/2.af5e78b3.chunk.js",
-    "static/css/main.266fcd95.chunk.css",
-    "static/js/main.870e00b7.chunk.js"
+    "static/js/2.5e73d762.chunk.js",
+    "static/css/main.deb07f91.chunk.css",
+    "static/js/main.59c96e2c.chunk.js"
   ]
 }
