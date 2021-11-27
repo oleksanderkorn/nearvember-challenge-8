@@ -53,7 +53,7 @@ const Elections = ({
           setSelectedElection(e);
         });
     }
-  }, [elections, shouldReloadElections]);
+  }, [elections]);
 
   useEffect(() => {
     if (onLoading) {
@@ -61,14 +61,22 @@ const Elections = ({
       contract.get_elections().then(
         (elections) => {
           onLoading(false);
-          setElections(elections);
+          setElections(
+            elections.sort((e1, e2) =>
+              e1.startDate === e2.startDate
+                ? 0
+                : e1.startDate > e2.startDate
+                ? -1
+                : 1
+            )
+          );
         },
         (err) => {
           onLoading(false);
         }
       );
     }
-  }, [contract, onLoading]);
+  }, [contract, onLoading, shouldReloadElections]);
 
   return (
     <div className="container mx-auto flex-row">
