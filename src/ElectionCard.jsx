@@ -133,7 +133,7 @@ const ElectionCard = ({
         <div className="text-sm font-medium text-black text flex flex-row items-center">
           {candidates &&
             candidates.length === 0 &&
-            "No candides yes, apply to be the first!"}
+            "No candidates yes, apply to be the first!"}
           {candidates &&
             candidates.length > 0 &&
             `${candidates.length} candidate(s) applied`}

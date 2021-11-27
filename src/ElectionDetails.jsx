@@ -242,7 +242,7 @@ const ElectionDetails = ({
         <div className="text-xl font-medium text-black text-center">
           {candidates.length > 0
             ? "Candidates:"
-            : "No cadidates yes, apply to be the first"}
+            : "No candidates yet, apply to be the first"}
         </div>
         {showCandidateDialog && (
           <div className="backdrop-filter backdrop-blur-lg mx-auto w-80">
