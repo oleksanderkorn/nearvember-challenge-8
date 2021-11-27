@@ -120,7 +120,7 @@ const Authorization = ({
               currentUser && currentUser.accountId ? "md:pl-60" : ""
             } font-medium text-black uppercase`}
           >
-            Voting is cool 😎
+            Voting is easy 😎
           </div>
           <div className="flex justify-between">
             {currentUser && (
