@@ -18,7 +18,9 @@ const ElectionDetails = ({
   const [isShowing, setIsShowing] = useState(false);
   const [closeButtonColor, setCloseButtonColor] = useState("#000");
   const [candidates, setCandidates] = useState([]);
+  const [votes, setVotes] = useState([]);
   const [shouldReloadCandidates, setShouldReloadCandidates] = useState(false);
+  const [shouldReloadVotes, setShouldReloadVotes] = useState(false);
   const [showCandidateDialog, setShowCandidateDialog] = useState(false);
 
   const creationDate = toDate(election.creationDate);
@@ -58,6 +60,22 @@ const ElectionDetails = ({
     return isGodMode || startDate < moment();
   };
 
+  useEffect(() => {
+    if (onLoading) {
+      onLoading(true);
+      contract.get_votes({ electionId: election.id }).then(
+        (votes) => {
+          onLoading(false);
+          setShouldReloadVotes(true);
+          setVotes(votes);
+        },
+        (err) => {
+          onLoading(false);
+        }
+      );
+    }
+  }, [contract, election.id, onLoading, shouldReloadVotes]);
+
   const voteForCandidate = () => {
     if (onLoading) {
       onLoading(true);
@@ -68,9 +86,8 @@ const ElectionDetails = ({
           comment: "",
         })
         .then(
-          (candidates) => {
+          () => {
             onLoading(false);
-            setCandidates(candidates);
           },
           (err) => {
             onLoading(false);
@@ -174,6 +191,7 @@ const ElectionDetails = ({
                 setShouldReloadCandidates(true);
                 setShowCandidateDialog(false);
               }}
+              onLoading={onLoading}
               onClose={() => setShowCandidateDialog(false)}
             />
           </div>
@@ -183,10 +201,12 @@ const ElectionDetails = ({
             <CandidateCards
               election={election}
               candidates={candidates}
+              votes={votes}
               contract={contract}
               currentUser={currentUser}
               nearConfig={nearConfig}
               wallet={wallet}
+              onLoading={onLoading}
               onCandidateSelected={setSelectedCandidate}
             />
           </div>

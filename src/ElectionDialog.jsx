@@ -2,34 +2,35 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import TextField from "./TextField";
 
-export default function CandidateDialog({
+export default function ElectionDialog({
   onClose,
   election,
   contract,
   currentUser,
   nearConfig,
   wallet,
-  onCandidateAdded,
+  onElectionAdded,
   onLoading,
 }) {
-  const [candidateName, setCandidateName] = useState("");
-  const [candidateSlogan, setCandidateSlogan] = useState("");
-  const [candidateGoals, setCandidateGoals] = useState("My goals");
+  const [electionTitle, setElectionTitle] = useState("");
+  const [electionDescription, setElectionDescription] = useState("");
+  const [electionStartDate, setElectionStartDate] = useState("0");
+  const [electionEndDate, setElectionEndDate] = useState("0");
 
-  const addCandidacy = () => {
+  const addElection = () => {
     if (onLoading) {
       onLoading(true);
       contract
-        .add_candidacy({
-          electionId: election.id,
-          name: candidateName,
-          slogan: candidateSlogan,
-          goals: candidateGoals,
+        .add_election({
+          title: electionTitle,
+          description: electionDescription,
+          startDate: electionStartDate,
+          endDate: electionEndDate,
         })
         .then(
           () => {
             onLoading(false);
-            onCandidateAdded();
+            onElectionAdded();
           },
           (err) => {
             onLoading(false);
@@ -44,7 +45,7 @@ export default function CandidateDialog({
       <Transition appear show={true} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto backdrop-blur-xl"
           onClose={onClose}
         >
           <div className="min-h-screen px-4 text-center">
@@ -80,23 +81,29 @@ export default function CandidateDialog({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
                 >
-                  Register as a cadidate
+                  Add new election
                 </Dialog.Title>
                 <TextField
-                  label="Name"
-                  value={candidateName}
-                  onValueChange={(e) => setCandidateName(e.target.value)}
+                  label="Title"
+                  value={electionTitle}
+                  onValueChange={(e) => setElectionTitle(e.target.value)}
                 />
                 <TextField
-                  label="Slogan"
-                  value={candidateSlogan}
-                  onValueChange={(e) => setCandidateSlogan(e.target.value)}
+                  label="Description"
+                  value={electionDescription}
+                  onValueChange={(e) => setElectionDescription(e.target.value)}
                 />
                 <TextField
-                  label="Goals"
-                  value={candidateGoals}
-                  lines={4}
-                  onValueChange={(e) => setCandidateGoals(e.target.value)}
+                  label="Start on"
+                  type="date"
+                  value={electionStartDate}
+                  onValueChange={(e) => setElectionStartDate(e.target.value)}
+                />
+                <TextField
+                  label="Ends on"
+                  value={electionEndDate}
+                  type="date"
+                  onValueChange={(e) => setElectionEndDate(e.target.value)}
                 />
                 <div className="mt-4 flex justify-between">
                   <button
@@ -109,7 +116,7 @@ export default function CandidateDialog({
                   <button
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={addCandidacy}
+                    onClick={addElection}
                   >
                     Submit
                   </button>
