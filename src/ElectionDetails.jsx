@@ -140,7 +140,7 @@ const ElectionDetails = ({
           <button
             onClick={() => setShowCandidateDialog(true)}
             disabled={!canAddCandidacy()}
-            className="disabled:opacity-50 mt-2 bg-green-500 hover:bg-green-700 w-14 h-14 text-white font-bold py-2 px-4 rounded-xl float-right"
+            className="disabled:opacity-50 ml-4 bg-green-500 hover:bg-green-700 w-14 h-14 text-white font-bold py-2 px-4 rounded-xl"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

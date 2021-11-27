@@ -41,7 +41,7 @@ const CandidateCards = ({
                           ? "bg-sky-900 bg-opacity-75 text-white bg-green-500"
                           : "bg-white"
                       }
-                      w-full min-w-10 relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none m-2`
+                      w-full min-w-10 relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none my-2`
                 }
               >
                 {({ active, checked }) => (
