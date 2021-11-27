@@ -46,7 +46,7 @@ const Elections = ({
   };
 
   useEffect(() => {
-    if (elections) {
+    if (elections && elections.length > 0) {
       const electionId = localStorage.getItem("activeElection");
       elections
         .filter((e) => `${e.id}` === electionId)

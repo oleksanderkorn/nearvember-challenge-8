@@ -35,7 +35,7 @@ const ElectionCard = ({
   }, [contract, election.id, onLoading]);
 
   useEffect(() => {
-    if (votes && votes.votes.length > 0) {
+    if (votes && votes.votes && votes.votes.length > 0) {
       setCandidates(votes.votes);
     } else {
       setCandidates([]);
