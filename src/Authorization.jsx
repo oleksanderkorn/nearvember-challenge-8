@@ -115,7 +115,11 @@ const Authorization = ({
             alt="NEAR Logo"
           />
 
-          <div className="text-xl md:pl-60 font-medium text-black uppercase">
+          <div
+            className={`text-xl ${
+              currentUser.accountId ? "md:pl-60" : ""
+            } font-medium text-black uppercase`}
+          >
             Voting is cool 😎
           </div>
           <div className="flex justify-between">
