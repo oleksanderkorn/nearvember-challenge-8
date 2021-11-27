@@ -182,7 +182,7 @@ export class Contract {
 
     let votes = election.votes.get(candidateId);
     if (votes == null) {
-      votes = new PersistentSet<Vote>(`vt${electionId}`);
+      votes = new PersistentSet<Vote>(`vt${electionId}${candidateId}`);
     }
     votes.add(vote);
     election.votes.set(candidateId, votes);
