@@ -13,6 +13,7 @@
         "autoprefixer": "^9",
         "env-cmd": "~10.1.0",
         "gh-pages": "^3.2.3",
+        "moment": "^2.29.1",
         "near-api-js": "^0.43.1",
         "postcss": "^7",
         "react": "^17.0.2",
@@ -32,7 +33,8 @@
         "dev:deploy:contract": "near dev-deploy",
         "deploy:contract": "near deploy",
         "deploy:pages": "gh-pages -d build/",
-        "deploy": "yarn build && yarn deploy:contract && yarn deploy:pages"
+        "deploy": "yarn build && yarn deploy:contract && yarn deploy:pages",
+        "dev:deploy": "yarn build:contract:debug && yarn dev:deploy:contract"
     },
     "eslintConfig": {
         "extends": [
