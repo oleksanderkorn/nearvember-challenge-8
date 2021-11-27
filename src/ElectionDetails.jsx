@@ -46,7 +46,6 @@ const ElectionDetails = ({
 
   useEffect(() => {
     if (currentUser && currentUser.accountId && candidates) {
-      console.log(candidates);
       candidates
         .filter((c) => c.accountId === currentUser.accountId)
         .forEach(() => setIsUserApplied(true));
@@ -88,7 +87,7 @@ const ElectionDetails = ({
       contract.get_votes({ electionId: election.id }).then(
         (votes) => {
           onLoading(false);
-          setShouldReloadVotes(true);
+          setShouldReloadVotes(false);
           setVotes(votes);
         },
         (err) => {
@@ -203,7 +202,7 @@ const ElectionDetails = ({
             onClick={voteForCandidate}
             disabled={isUserVoted || !selectedCandidate}
           >
-            {isUserVoted ? "Already vote" : "Submit vote"}
+            {isUserVoted ? "Already voted" : "Submit vote"}
           </button>
         </div>
         <div className="text-md font-medium text-black text flex flex-row items-center">

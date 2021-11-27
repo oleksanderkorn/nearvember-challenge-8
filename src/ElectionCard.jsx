@@ -11,10 +11,36 @@ const ElectionCard = ({
   currentUser,
   nearConfig,
   wallet,
+  onLoading,
   onElectionSelected,
 }) => {
   let [isShowing, setIsShowing] = useState(false);
   let [isHovered, setIsHovered] = useState(false);
+  const [votes, setVotes] = useState();
+  const [candidates, setCandidates] = useState([]);
+
+  useEffect(() => {
+    if (onLoading) {
+      onLoading(true);
+      contract.get_votes({ electionId: election.id }).then(
+        (votes) => {
+          onLoading(false);
+          setVotes(votes);
+        },
+        (err) => {
+          onLoading(false);
+        }
+      );
+    }
+  }, [contract, election.id, onLoading]);
+
+  useEffect(() => {
+    if (votes && votes.votes.length > 0) {
+      setCandidates(votes.votes);
+    } else {
+      setCandidates([]);
+    }
+  }, [votes]);
 
   const creationDate = toDate(election.creationDate);
   const startDate = toDate(election.startDate);
@@ -104,8 +130,44 @@ const ElectionCard = ({
           </svg>
           {formatDate(startDate)} - {formatDate(endDate)}
         </div>
+        <div className="text-sm font-medium text-black text flex flex-row items-center">
+          {candidates &&
+            candidates.length === 0 &&
+            "No candides yes, apply to be the first!"}
+          {candidates &&
+            candidates.length > 0 &&
+            `${candidates.length} candidate(s) applied`}
+        </div>
+        <div className="text-sm font-medium text-black text flex flex-row items-center">
+          {candidates && candidates.length > 0 && (
+            <div>
+              Leaderboard:
+              {candidates
+                .sort((c1, c2) =>
+                  c1.votes.length === c2.votes.length
+                    ? 0
+                    : c1.votes.length > c2.votes.length
+                    ? -1
+                    : 1
+                )
+                .map((c, index) => {
+                  return <Leaderboard key={index} candidate={c} />;
+                })}
+            </div>
+          )}
+        </div>
       </div>
     </Transition>
+  );
+};
+
+const Leaderboard = ({ candidate }) => {
+  return (
+    <div className="flex">
+      <div>
+        {candidate.candidate.name} ({candidate.votes.length})
+      </div>
+    </div>
   );
 };
 

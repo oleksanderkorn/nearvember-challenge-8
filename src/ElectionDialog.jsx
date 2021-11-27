@@ -16,8 +16,22 @@ export default function ElectionDialog({
 }) {
   const [electionTitle, setElectionTitle] = useState("");
   const [electionDescription, setElectionDescription] = useState("");
-  const [electionStartDate, setElectionStartDate] = useState(new Date());
-  const [electionEndDate, setElectionEndDate] = useState(new Date());
+  const [electionStartDate, setElectionStartDate] = useState(
+    moment().add(1, "day").startOf("day").toDate()
+  );
+  const [electionEndDate, setElectionEndDate] = useState(
+    moment().add(7, "days").endOf("day").toDate()
+  );
+
+  const canAddElection = () => {
+    return (
+      electionTitle.length > 0 &&
+      electionDescription.length > 0 &&
+      electionTitle.length > 0 &&
+      electionStartDate &&
+      electionEndDate
+    );
+  };
 
   const addElection = () => {
     if (onLoading) {
@@ -120,8 +134,9 @@ export default function ElectionDialog({
                   </button>
                   <button
                     type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    className="disabled:opacity-50 inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={addElection}
+                    disabled={!canAddElection()}
                   >
                     Submit
                   </button>

@@ -105,6 +105,7 @@ const Elections = ({
                   currentUser={currentUser}
                   nearConfig={nearConfig}
                   wallet={wallet}
+                  onLoading={onLoading}
                   onElectionSelected={activateElection}
                 />
               );
