@@ -39,7 +39,7 @@ const ElectionDetails = ({
       contract
         .get_god_mode({ accountId: currentUser.accountId })
         .then((mode) => {
-          console.log(`God mode [${mode}]`);
+          // console.log(`God mode [${mode}]`);
           setIsGodeMode(mode);
         });
     }

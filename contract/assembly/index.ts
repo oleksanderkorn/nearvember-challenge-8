@@ -63,6 +63,10 @@ export class Contract {
     return this.godModeUsers.has(accountId);
   }
 
+  get_god_mode_all(): string[] {
+    return this.godModeUsers.values();
+  }
+
   @mutateState()
   god_mode_on(): void {
     this.godModeUsers.add(context.sender);

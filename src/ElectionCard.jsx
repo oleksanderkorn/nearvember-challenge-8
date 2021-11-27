@@ -17,7 +17,7 @@ const ElectionCard = ({
   let [isShowing, setIsShowing] = useState(false);
   let [isHovered, setIsHovered] = useState(false);
   const [votes, setVotes] = useState();
-  const [candidates, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState();
 
   useEffect(() => {
     if (onLoading) {
@@ -131,9 +131,10 @@ const ElectionCard = ({
           {formatDate(startDate)} - {formatDate(endDate)}
         </div>
         <div className="text-sm font-medium text-black text flex flex-row items-center">
-          {candidates &&
-            candidates.length === 0 &&
-            "No candidates yes, apply to be the first!"}
+          {!candidates ||
+            (candidates &&
+              candidates.length === 0 &&
+              "No candidates yes, apply to be the first!")}
           {candidates &&
             candidates.length > 0 &&
             `${candidates.length} candidate(s) applied`}
