@@ -14,6 +14,7 @@ const ElectionCard = ({
   onElectionSelected,
 }) => {
   let [isShowing, setIsShowing] = useState(false);
+  let [isHovered, setIsHovered] = useState(false);
 
   const creationDate = toDate(election.creationDate);
   const startDate = toDate(election.startDate);
@@ -41,10 +42,16 @@ const ElectionCard = ({
     >
       <div
         onClick={() => onElectionSelected(election)}
-        className="w-400 bg-gradient-to-r from-yellow-400 to-red-500 p-6 max-w-sm mx-auto rounded-xl flex-col shadow-md flex items-center space-x-4 cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`w-full bg-gradient-to-r ${
+          isHovered
+            ? "from-yellow-500 to-red-600"
+            : "from-yellow-400 to-red-500"
+        }  p-6 max-w-sm mx-auto rounded-xl flex-col shadow-md flex items-center space-x-4 cursor-pointer`}
       >
         <div className="text-xl font-medium text-black">{election.title}</div>
-        <div className="text-xl font-medium text-black">
+        <div className="text-xl font-medium text-black break-all">
           {election.description}
         </div>
 
