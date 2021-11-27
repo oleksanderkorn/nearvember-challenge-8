@@ -12,6 +12,7 @@ export default function ElectionDialog({
   wallet,
   onElectionAdded,
   onLoading,
+  onError,
 }) {
   const [electionTitle, setElectionTitle] = useState("");
   const [electionDescription, setElectionDescription] = useState("");
@@ -34,6 +35,7 @@ export default function ElectionDialog({
             onElectionAdded();
           },
           (err) => {
+            onError(`${err.kind["ExecutionError"]}`);
             onLoading(false);
             console.log(err);
           }

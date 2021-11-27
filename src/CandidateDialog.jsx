@@ -11,6 +11,7 @@ export default function CandidateDialog({
   wallet,
   onCandidateAdded,
   onLoading,
+  onError,
 }) {
   const [candidateName, setCandidateName] = useState("");
   const [candidateSlogan, setCandidateSlogan] = useState("");
@@ -33,7 +34,7 @@ export default function CandidateDialog({
           },
           (err) => {
             onLoading(false);
-            console.log(err);
+            onError(`${err.kind["ExecutionError"]}`);
           }
         );
     }

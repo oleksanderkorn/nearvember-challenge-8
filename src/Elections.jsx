@@ -20,9 +20,10 @@ const Elections = ({
   nearConfig,
   wallet,
   onLoading,
+  onError,
 }) => {
   const [elections, setElections] = useState();
-  const [shouldReloadElections, setShouldReloadElections] = useState(false);
+  const [shouldReloadElections, setShouldReloadElections] = useState(true);
   const [selectedElection, setSelectedElection] = useState();
   const [showElectionDialog, setShowElectionDialog] = useState(false);
 
@@ -56,7 +57,7 @@ const Elections = ({
   }, [elections]);
 
   useEffect(() => {
-    if (onLoading) {
+    if (onLoading && shouldReloadElections) {
       onLoading(true);
       contract.get_elections().then(
         (elections) => {
@@ -70,13 +71,16 @@ const Elections = ({
                 : 1
             )
           );
+          setShouldReloadElections(false);
         },
         (err) => {
+          setShouldReloadElections(false);
           onLoading(false);
+          onError(`${err.kind["ExecutionError"]}`);
         }
       );
     }
-  }, [contract, onLoading, shouldReloadElections]);
+  }, [contract, onLoading, onError, shouldReloadElections]);
 
   return (
     <div className="container mx-auto flex-row">
@@ -119,6 +123,7 @@ const Elections = ({
               setShowElectionDialog(false);
             }}
             onLoading={onLoading}
+            onError={onError}
             onClose={() => setShowElectionDialog(false)}
           />
         </div>
@@ -132,6 +137,7 @@ const Elections = ({
             nearConfig={nearConfig}
             wallet={wallet}
             onLoading={onLoading}
+            onError={onError}
             onClose={deactivateElection}
           />
         </div>

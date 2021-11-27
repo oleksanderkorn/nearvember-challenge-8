@@ -14,6 +14,7 @@ const ElectionDetails = ({
   wallet,
   onClose,
   onLoading,
+  onError,
 }) => {
   const [isShowing, setIsShowing] = useState(false);
   const [closeButtonColor, setCloseButtonColor] = useState("#000");
@@ -29,6 +30,8 @@ const ElectionDetails = ({
   let [, , resetIsShowing] = useTimeoutFn(() => setIsShowing(true), 100);
 
   const [isGodMode, setIsGodeMode] = useState(false);
+  const [isUserVoted, setIsUserVoted] = useState(false);
+  const [isUserApplied, setIsUserApplied] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState();
 
   useEffect(() => {
@@ -40,6 +43,25 @@ const ElectionDetails = ({
         });
     }
   }, [isGodMode, contract, currentUser]);
+
+  useEffect(() => {
+    if (currentUser && currentUser.accountId && candidates) {
+      console.log(candidates);
+      candidates
+        .filter((c) => c.accountId === currentUser.accountId)
+        .forEach(() => setIsUserApplied(true));
+    }
+  }, [contract, candidates, currentUser]);
+
+  useEffect(() => {
+    if (currentUser && currentUser.accountId && votes && votes.votes) {
+      votes.votes.forEach((c) => {
+        c.votes
+          .filter((v) => v.accountId === currentUser.accountId)
+          .forEach((v) => setIsUserVoted(true));
+      });
+    }
+  }, [contract, votes, currentUser]);
 
   useEffect(() => {
     if (onLoading) {
@@ -57,7 +79,7 @@ const ElectionDetails = ({
   }, [contract, election.id, shouldReloadCandidates, onLoading]);
 
   const canAddCandidacy = () => {
-    return isGodMode || startDate < moment();
+    return !isUserApplied && (isGodMode || startDate < moment());
   };
 
   useEffect(() => {
@@ -87,10 +109,12 @@ const ElectionDetails = ({
         })
         .then(
           () => {
+            setShouldReloadVotes(true);
             onLoading(false);
           },
           (err) => {
             onLoading(false);
+            onError(`${err.kind["ExecutionError"]}`);
           }
         );
     }
@@ -115,7 +139,7 @@ const ElectionDetails = ({
         <div className="text-2xl flex justify-between font-medium items-center mb-4">
           <button
             onClick={() => setShowCandidateDialog(true)}
-            disabled={!canAddCandidacy}
+            disabled={!canAddCandidacy()}
             className="disabled:opacity-50 mt-2 bg-green-500 hover:bg-green-700 w-14 h-14 text-white font-bold py-2 px-4 rounded-xl float-right"
           >
             <svg
@@ -163,9 +187,9 @@ const ElectionDetails = ({
           <button
             className="disabled:opacity-50 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded float-right"
             onClick={voteForCandidate}
-            disabled={!selectedCandidate}
+            disabled={isUserVoted || !selectedCandidate}
           >
-            Submit vote
+            {isUserVoted ? "Already vote" : "Submit vote"}
           </button>
         </div>
         <div className="text-md font-medium text-black text">
@@ -191,6 +215,7 @@ const ElectionDetails = ({
                 setShouldReloadCandidates(true);
                 setShowCandidateDialog(false);
               }}
+              onError={onError}
               onLoading={onLoading}
               onClose={() => setShowCandidateDialog(false)}
             />

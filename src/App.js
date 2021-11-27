@@ -4,9 +4,11 @@ import PropTypes from "prop-types";
 import Elections from "./Elections";
 import Authorization from "./Authorization";
 import LoadingIndicator from "./LoadingIndicator";
+import ErrorPopup from "./ErrorPopup";
 
 const App = ({ contract, currentUser, nearConfig, wallet }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   return (
     <div className="container mx-auto">
@@ -17,6 +19,7 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
         wallet={wallet}
         onLoading={setIsLoading}
       />
+      <ErrorPopup error={error} callback={() => setError("")} />
       <LoadingIndicator isLoading={isLoading} />
       {currentUser && (
         <Elections
@@ -25,6 +28,7 @@ const App = ({ contract, currentUser, nearConfig, wallet }) => {
           nearConfig={nearConfig}
           wallet={wallet}
           onLoading={setIsLoading}
+          onError={(err) => setError(err)}
         />
       )}
     </div>

@@ -67,7 +67,6 @@ const CandidateDetails = ({ candidate, votes, active, checked, onLoading }) => {
 
   useEffect(() => {
     if (candidate && votes && votes.votes) {
-      console.log(votes);
       votes.votes
         .filter((v) => v.candidate.accountId === candidate.accountId)
         .forEach((v) => {
