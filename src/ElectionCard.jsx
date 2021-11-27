@@ -38,7 +38,7 @@ const ElectionCard = ({
     if (votes && votes.votes && votes.votes.length > 0) {
       setCandidates(votes.votes);
     } else {
-      setCandidates([]);
+      setCandidates();
     }
   }, [votes]);
 
@@ -74,7 +74,7 @@ const ElectionCard = ({
           isHovered
             ? "from-yellow-500 to-red-600"
             : "from-yellow-400 to-red-500"
-        }  p-6 max-w-sm mx-auto rounded-xl flex-col shadow-md flex space-x-4 space-y-2 cursor-pointer`}
+        }  p-6 max-w-sm mx-auto rounded-xl flex-col shadow-md flex space-y-2 cursor-pointer`}
       >
         <div className="text-xl font-medium text-black text-center">
           {election.title}

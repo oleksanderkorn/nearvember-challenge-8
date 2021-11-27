@@ -16,6 +16,7 @@ const GodModeToggle = ({
     if (currentUser) {
       contract.get_god_mode({ accountId: currentUser.accountId }).then(
         (mode) => {
+          console.log(`God mode [${mode}]`);
           setEnabled(mode);
         },
         (err) => {
@@ -107,7 +108,7 @@ const Authorization = ({
         leaveFrom="opacity-100 rotate-0 scale-100 "
         leaveTo="opacity-0 scale-95 "
       >
-        <div className="flex justify-between bg-gradient-to-r from-green-400 to-blue-500 mt-6 p-2 mx-auto rounded-xl shadow-md items-center space-x-4">
+        <div className="flex justify-between bg-gradient-to-r from-green-400 to-blue-500 mt-6 p-2 mx-auto rounded-xl shadow-md items-center">
           <img
             className="h-14 w-20"
             src="https://docs.near.org/img/near_logo.svg"

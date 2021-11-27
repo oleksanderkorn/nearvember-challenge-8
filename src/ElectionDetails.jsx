@@ -35,14 +35,15 @@ const ElectionDetails = ({
   const [selectedCandidate, setSelectedCandidate] = useState();
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && currentUser.accountId) {
       contract
         .get_god_mode({ accountId: currentUser.accountId })
         .then((mode) => {
+          console.log(`God mode [${mode}]`);
           setIsGodeMode(mode);
         });
     }
-  }, [isGodMode, contract, currentUser]);
+  }, [isGodMode, contract, currentUser, currentUser.accountId]);
 
   useEffect(() => {
     if (currentUser && currentUser.accountId && candidates) {
@@ -78,7 +79,7 @@ const ElectionDetails = ({
   }, [contract, election.id, shouldReloadCandidates, onLoading]);
 
   const canAddCandidacy = () => {
-    return !isUserApplied && (isGodMode || startDate < moment());
+    return !isUserApplied && (isGodMode || startDate > moment());
   };
 
   useEffect(() => {
@@ -134,12 +135,12 @@ const ElectionDetails = ({
       leaveFrom="opacity-100 rotate-0 scale-100 "
       leaveTo="opacity-0 scale-95 "
     >
-      <div className="mw-800 bg-gradient-to-r from-indigo-300 to-indigo-500 p-6 rounded-xl flex-col shadow-md flex space-x-4">
+      <div className="mw-800 bg-gradient-to-r from-indigo-300 to-indigo-500 p-6 rounded-xl flex-col shadow-md flex">
         <div className="text-2xl flex justify-between font-medium items-center mb-4">
           <button
             onClick={() => setShowCandidateDialog(true)}
             disabled={!canAddCandidacy()}
-            className="disabled:opacity-50 ml-4 bg-green-500 hover:bg-green-700 w-14 h-14 text-white font-bold py-2 px-4 rounded-xl"
+            className="disabled:opacity-50 bg-green-500 hover:bg-green-700 w-14 h-14 text-white font-bold py-2 px-4 rounded-xl"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

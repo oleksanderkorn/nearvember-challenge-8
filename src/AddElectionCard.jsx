@@ -35,7 +35,7 @@ const AddElectionCard = ({
           isHovered
             ? "from-green-300 to-blue-500"
             : "from-green-100 to-blue-300"
-        } p-6 mx-auto max-w-sm rounded-xl shadow-md space-x-4 cursor-pointer`}
+        } p-6 mx-auto max-w-sm rounded-xl shadow-md cursor-pointer`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
