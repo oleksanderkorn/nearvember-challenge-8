@@ -27,7 +27,7 @@ const CandidateCard = ({
             {candidates.map((candidate, index) => (
               <RadioGroup.Option
                 key={index}
-                value={candidate.name}
+                value={candidate.accountId}
                 className={({ active, checked }) =>
                   `${
                     active

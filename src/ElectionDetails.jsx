@@ -64,7 +64,7 @@ const ElectionDetails = ({
       contract
         .add_vote({
           electionId: election.id,
-          candidateId: selectedCandidate.id,
+          candidateId: selectedCandidate,
           comment: "",
         })
         .then(
