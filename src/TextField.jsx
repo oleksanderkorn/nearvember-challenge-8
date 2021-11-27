@@ -1,4 +1,6 @@
-const TextField = ({ label, value, lines, onValueChange }) => {
+import DateTimePicker from "react-datetime-picker";
+
+const TextField = ({ label, value, lines, onValueChange, isDate }) => {
   return (
     <div>
       <div className="flex flex-row mt-2 relative rounded-md">
@@ -8,7 +10,13 @@ const TextField = ({ label, value, lines, onValueChange }) => {
         >
           {label}
         </label>
-        {lines ? (
+        {isDate ? (
+          <DateTimePicker
+            className="border-2 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-2/3 sm:text-sm border-gray-200 rounded-md"
+            value={value}
+            onChange={(date) => onValueChange(date)}
+          />
+        ) : lines ? (
           <textarea
             className="border-2 p-1 focus:ring-indigo-500 focus:border-indigo-500 block w-2/3 sm:text-sm border-gray-200 rounded-md"
             name={label}

@@ -117,7 +117,7 @@ const Authorization = ({
 
           <div
             className={`text-xl ${
-              currentUser.accountId ? "md:pl-60" : ""
+              currentUser && currentUser.accountId ? "md:pl-60" : ""
             } font-medium text-black uppercase`}
           >
             Voting is cool 😎

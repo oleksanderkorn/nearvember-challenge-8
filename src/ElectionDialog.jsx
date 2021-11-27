@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import TextField from "./TextField";
+import moment from "moment";
 
 export default function ElectionDialog({
   onClose,
@@ -14,8 +15,8 @@ export default function ElectionDialog({
 }) {
   const [electionTitle, setElectionTitle] = useState("");
   const [electionDescription, setElectionDescription] = useState("");
-  const [electionStartDate, setElectionStartDate] = useState("0");
-  const [electionEndDate, setElectionEndDate] = useState("0");
+  const [electionStartDate, setElectionStartDate] = useState(new Date());
+  const [electionEndDate, setElectionEndDate] = useState(new Date());
 
   const addElection = () => {
     if (onLoading) {
@@ -24,8 +25,8 @@ export default function ElectionDialog({
         .add_election({
           title: electionTitle,
           description: electionDescription,
-          startDate: electionStartDate,
-          endDate: electionEndDate,
+          startDate: moment(electionStartDate).format("x"),
+          endDate: moment(electionEndDate).format("x"),
         })
         .then(
           () => {
@@ -76,7 +77,7 @@ export default function ElectionDialog({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full md:w-1/2 lg:w-1/3 p-6 my-8 overflow-auto text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
@@ -96,14 +97,16 @@ export default function ElectionDialog({
                 <TextField
                   label="Start on"
                   type="date"
+                  isDate
                   value={electionStartDate}
-                  onValueChange={(e) => setElectionStartDate(e.target.value)}
+                  onValueChange={(date) => setElectionStartDate(date)}
                 />
                 <TextField
                   label="Ends on"
                   value={electionEndDate}
                   type="date"
-                  onValueChange={(e) => setElectionEndDate(e.target.value)}
+                  isDate
+                  onValueChange={(date) => setElectionEndDate(date)}
                 />
                 <div className="mt-4 flex justify-between">
                   <button
